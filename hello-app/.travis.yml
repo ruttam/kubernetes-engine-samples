@@ -1,0 +1,11 @@
+language: go
+
+services:
+  - docker
+
+before-deployment:
+ - docker build -t rutama/hello-web:${TRAVIS_COMMIT} .
+ - docker images -a
+
+script:
+ - echo hello
