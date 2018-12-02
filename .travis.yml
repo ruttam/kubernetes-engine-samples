@@ -3,7 +3,7 @@ language: go
 services:
   - docker
 
-before-deployment:
+before_install:
  - docker build -t rutama/hello-web:${TRAVIS_COMMIT} .
  - docker images -a
 
