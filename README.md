@@ -1,17 +1,26 @@
-# Kubernetes Engine Samples
+# Hello Application example
 
-This repository contains sample applications used in
-[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) tutorials.
+This example shows how to build and deploy a containerized Go web server
+application using [Kubernetes](https://kubernetes.io).
 
-See the following resources to learn more:
+Visit https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app
+to follow the tutorial and deploy this application on [Google Kubernetes
+Engine](https://cloud.google.com/kubernetes-engine).
 
-- [Google Kubernetes Engine - Quickstart](https://cloud.google.com/kubernetes-engine/docs/quickstart)
-- [Google Kubernetes Engine - Tutorials](https://cloud.google.com/kubernetes-engine/docs/tutorials)
+This directory contains:
 
-## Contributing changes
+- `main.go` contains the HTTP server implementation. It responds to all HTTP
+  requests with a  `Hello, world!` response.
+- `Dockerfile` is used to build the Docker image for the application.
 
-* See [CONTRIBUTING.md](CONTRIBUTING.md)
+This application is available as two Docker images, which respond to requests
+with different version numbers:
 
-## Licensing
+- `gcr.io/google-samples/hello-app:1.0`
+- `gcr.io/google-samples/hello-app:2.0`
 
-* See [LICENSE](LICENSE)
+This example is used in many official/unofficial tutorials, some of them
+include:
+- [Kubernetes Engine Quickstart](https://cloud.google.com/kubernetes-engine/docs/quickstart)
+- [Kubernetes Engine - Deploying a containerized web application](https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app) tutorial
+- [Kubernetes Engine - Setting up HTTP Load Balancing](https://cloud.google.com/kubernetes-engine/docs/tutorials/http-balancer) tutorial
