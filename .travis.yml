@@ -4,8 +4,17 @@ services:
   - docker
 
 before_install:
+ - sudo apt-get update && sudo apt-get install -y apt-transport-https
+ - curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+ - echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+ - sudo apt-get update
+ - sudo apt-get install -y kubectl
  - docker build -t rutama/hello-web:${TRAVIS_COMMIT} .
  - docker images -a
+ - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+ - docker push rutama/hello-web:${TRAVIS_COMMIT}
 
 script:
- - echo hello
+ - ./kube_context.sh
+ - kubectl get ns
+ - kubectl -n default set image deployment/hello-web hello-web=rutama/hello-web:${TRAVIS_COMMIT}
