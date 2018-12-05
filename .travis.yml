@@ -13,8 +13,12 @@ before_install:
  - docker images -a
  - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
  - docker push rutama/hello-web:${TRAVIS_COMMIT}
+ - docker tag rutama/hello-web:${TRAVIS_COMMIT} rutama/hello-web:latest
+ - docker push rutama/hello-web:latest
 
 script:
  - ./kube_context.sh
  - kubectl get ns
- - kubectl -n default set image deployment/hello-web hello-web=rutama/hello-web:${TRAVIS_COMMIT}
+ - kubectl -n default apply -f manifests/helloweb-deployment.yaml
+ - kubectl -n default apply -f manifests/helloweb-service-expose.yaml
+ - kubectl patch deployment helloweb -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
